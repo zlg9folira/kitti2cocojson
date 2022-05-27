@@ -4,7 +4,7 @@ A basic tool for converting Kitti object annotations to bbox annotation for LiDA
 ATTENTION: the conversion does not take camera frames and related 2D bounding boxes into account. 
 
 ## Kitti Labels
-Kitti provides annotation in txt format for every frame. Every line in annotation file represent an object with 15 elements as shown in the this table.
+Kitti provides annotations in txt format for every frame. Every line in annotation file represents an object with 15 elements as shown in the this table. The first element is object class and the last element is bounding box rotation angle around vertical axis in camera 3D coordinate system.
 
 <img width="693" alt="kitti_labels" src="https://user-images.githubusercontent.com/35779029/170735579-9da9c754-2615-4da9-ba7f-e17bff8ea5de.png">
 
