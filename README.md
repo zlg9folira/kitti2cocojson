@@ -6,7 +6,7 @@ ATTENTION: the conversion does not take camera frames and related 2D bounding bo
 ## Kitti Labels
 Kitti provides annotation in txt format for every frame. Every line in annotation file represent an object with 15 elements as shown in the this table.
 
-<img width="720" alt="kitti_labels" src="https://user-images.githubusercontent.com/35779029/170731139-477c17b6-ccf3-4918-9e49-5b9b9d7b8eb2.png">
+<img width="693" alt="kitti_labels" src="https://user-images.githubusercontent.com/35779029/170735579-9da9c754-2615-4da9-ba7f-e17bff8ea5de.png">
 
 ## Sensor Coordinates
 Kitti spatial references (even for 3D bounding boxes) are all in camera coordinate system. A one dimension CAM2LiDAR transformation would be required if annotations are used within Velodyne pointcloud data. This transformation should take place on "z" axis within camera frame.
