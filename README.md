@@ -1,7 +1,7 @@
 # kitti2cocojson
 A basic tool for converting Kitti object annotations to bbox annotation for LiDAR bird-eye-view object detection in coco JSON format.
 
-ATTENTION: the conversion does not take bounding boxes inside camera images into account. This project uses bird-eye-view LiDAR coordinate system (2D) and all coordinate references should be inside LiDAR frame.
+ATTENTION: the conversion does not take bounding boxes inside camera images into account. This project uses bird-eye-view LiDAR coordinate system (2D) and all bbox coordinate references should be inside LiDAR frame.
 
 ## Kitti Labels
 Kitti provides annotations in txt format for every frame. Every line in annotation file represents an object with 15 elements as shown in the this table. The first element is object class and the last element is bounding box rotation angle around vertical axis in camera 3D coordinate system.
