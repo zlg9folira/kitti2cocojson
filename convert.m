@@ -63,14 +63,14 @@ for k=1:length(Files)
                     %-------break the annotation into 15 parts--------
                     split = string(strsplit(tline_ann," ")); 
                     %-----------build a struct from labels------------
-                    sann.id = str2num(sprintf('%s%s',num2str(simg.id),num2str(count_line)));
+                    sann.id = str2num(sprintf('%s%s',num2str(count_line),num2str(simg.id)));
                     sann.image_id = simg.id;
                     sann.category_id = ann_class_id(find(ann_class_name == split(1)));
-                    cx = str2num(split(12))+(im_dim(1)/2); cy = str2num(split(14))-0.27+(im_dim(2)/2); %LiDAR-CAM frame 0.27m transform
                     bbw = str2num(split(10)); bbh = str2num(split(11));
+                    tlx = str2num(split(12))+(im_dim(1)/2)-(bbw/2); tly = str2num(split(14))-0.27+(im_dim(2)/2)+(bbh/2); %LiDAR-CAM frame 0.27m transform
                     th = str2num(split(15));
-                    sann.bbox = [cx cy bbw bbh th]; %[cx,cy,w,h,theta] in Kitti image frame
-                    sann.area = bbw * bbh; % [w*h] 
+                    sann.bbox = [tlx tly bbw bbh th]; %[tlx,tly,w,h,theta] in Kitti image frame
+                    sann.area = bbw * bbh; % [w*h]  
                     sann.iscrowd = 0;
                     %-----add this to "annotations" of the struct-----
                     s.annotations = [s.annotations,sann];
