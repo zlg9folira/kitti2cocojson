@@ -3,9 +3,9 @@ close all;
 fclose('all');
 
 %------------------directory and format setting------------------
-Dir_in = '/relidarperceptiondataset/data/';
-Dir_out = '/relidarperceptiondataset/json/';
-Dir_ann = '/relidarperceptiondataset/annotation/';
+Dir_in = '/data/';
+Dir_out = '/json/';
+Dir_ann = '/annotation/';
 In_format = 'txt';
 im_format = 'png';
 im_dim = [100 100];
