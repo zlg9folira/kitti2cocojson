@@ -71,6 +71,11 @@ for k=1:length(Files)
                     bbw = str2num(split(10))/res; bbh = str2num(split(11))/res;
                     tlx = str2num(split(12))/res+(im_dim(1)/2)-(bbw/2); tly = im_dim(2) - ((str2num(split(14))-0.27)/res+(im_dim(2)/2)+(bbh/2)); %LiDAR-CAM frame 0.27m transform
                     th = str2num(split(15));
+                    if th>=deg2rad(90) % rotate Kitti theta 90 degrees clockwise to match COCO (0 is not front of car but x-axis in image)
+                        th  = th - deg2rad(270);
+                    else
+                        th = th + deg2rad(90);
+                    end
                     sann.bbox = [tlx tly bbw bbh th]; %[tlx,tly,w,h,theta] in Kitti image frame
                     sann.area = bbw * bbh; % [w*h] 
                     sann.iscrowd = 0;
