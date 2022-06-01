@@ -28,7 +28,7 @@ draw = ImageDraw.Draw(image)
 
 # method 1: using Pillow 
 for bbox in bbox_list:
-	theta = bbox[4]-1.5708 # Kitti y_rotation angle - 90 degrees
+	theta = bbox[4]
 	xmin = bbox[0]
 	ymin = bbox[1]
 	w = bbox[2]
@@ -45,7 +45,7 @@ image.save('%s_bbox.png'%image_name, quality=95)
 
 # methhod 2: using CV
 for bbox in bbox_list:
-	degree = math.degrees(bbox[4])-90 #convert from range [-3.14,3.14] to [-180,180]
+	degree = math.degrees(bbox[4]) #convert from range [-3.14,3.14] to [-180,180]
 	p = helper.Point(bbox[0]+bbox[2]/2,bbox[1]+bbox[3]/2) #convert bbox [top left] coordinater to [center] 
 	rec = helper.Rectangle(p.x,p.y,bbox[2],bbox[3],degree)
 	rec.rotate_rectangle(degree)
