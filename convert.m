@@ -3,9 +3,9 @@ close all;
 fclose('all');
 
 %------------------directory and format setting------------------
-Dir_in = '/Users/foadhm/Downloads/relidarperceptiondataset/data/';
-Dir_out = '/Users/foadhm/Downloads/relidarperceptiondataset/json/';
-Dir_ann = '/Users/foadhm/Downloads/relidarperceptiondataset/annotation/';
+Dir_in = 'data/';
+Dir_out = 'json/';
+Dir_ann = 'annotation/';
 In_format = 'txt';
 im_format = 'png';
 res = 0.1;
