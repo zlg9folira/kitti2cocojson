@@ -3,12 +3,14 @@ close all;
 fclose('all');
 
 %------------------directory and format setting------------------
-Dir_in = '/data/';
-Dir_out = '/json/';
-Dir_ann = '/annotation/';
+Dir_in = '/Users/foadhm/Downloads/relidarperceptiondataset/data/';
+Dir_out = '/Users/foadhm/Downloads/relidarperceptiondataset/json/';
+Dir_ann = '/Users/foadhm/Downloads/relidarperceptiondataset/annotation/';
 In_format = 'txt';
 im_format = 'png';
-im_dim = [100 100];
+res = 0.1;
+map_dim = [150 150];
+im_dim = [map_dim(1)/res map_dim(2)/res];
 ann_class_name = ["Car","Van","Truck","Pedestrian","Person_sitting","Cyclist","Tram","Misc","DontCare"];
 ann_class_id = [0,1,2,3,4,5,6,7,8];
 
@@ -66,11 +68,11 @@ for k=1:length(Files)
                     sann.id = str2num(sprintf('%s%s',num2str(count_line),num2str(simg.id)));
                     sann.image_id = simg.id;
                     sann.category_id = ann_class_id(find(ann_class_name == split(1)));
-                    bbw = str2num(split(10)); bbh = str2num(split(11));
-                    tlx = str2num(split(12))+(im_dim(1)/2)-(bbw/2); tly = str2num(split(14))-0.27+(im_dim(2)/2)+(bbh/2); %LiDAR-CAM frame 0.27m transform
+                    bbw = str2num(split(10))/res; bbh = str2num(split(11))/res;
+                    tlx = str2num(split(12))/res+(im_dim(1)/2)-(bbw/2); tly = im_dim(2) - ((str2num(split(14))-0.27)/res+(im_dim(2)/2)+(bbh/2)); %LiDAR-CAM frame 0.27m transform
                     th = str2num(split(15));
                     sann.bbox = [tlx tly bbw bbh th]; %[tlx,tly,w,h,theta] in Kitti image frame
-                    sann.area = bbw * bbh; % [w*h]  
+                    sann.area = bbw * bbh; % [w*h] 
                     sann.iscrowd = 0;
                     %-----add this to "annotations" of the struct-----
                     s.annotations = [s.annotations,sann];
