@@ -8,11 +8,65 @@ Dir_out = 'json/';
 Dir_ann = 'annotation/';
 In_format = 'txt';
 im_format = 'png';
+train_portion = 70;test_portion=20;val_portion=10;
 res = 0.1;
 map_dim = [150 150];
 im_dim = [map_dim(1)/res map_dim(2)/res];
 ann_class_name = ["Car","Van","Truck","Pedestrian","Person_sitting","Cyclist","Tram","Misc","DontCare"];
 ann_class_id = [0,1,2,3,4,5,6,7,8];
+
+
+%----------------------Verify split portions---------------------
+if train_portion+test_portion+val_portion ~=100
+    disp('Split portion between train-test-val is not valid (should sum up to 100)');
+    quit(1);
+end
+
+%-----------------Shuffle annotations and split------------------
+fprintf('-------DATASET PREPARATION STARTED---------\n')
+f_frames = dir(sprintf('%s*.%s',Dir_ann,In_format));
+n_frames = length(f_frames);
+frames = [1:n_frames]+"";
+for k=1:n_frames
+    frames(k)=f_frames(k).name; % e.g., '000001.txt'
+end
+frames = frames(randperm(n_frames)); % shuffle
+max_ind_train = floor(n_frames*train_portion/100);
+max_ind_test = max_ind_train + floor(n_frames*test_portion/100);
+max_ind_val = n_frames;
+
+frames_train = frames(1:max_ind_train);
+frames_test = frames(1 + max_ind_train: max_ind_test);
+frames_val = frames(1 + max_ind_test: max_ind_val);
+
+% write frame names into train.txt
+fid = fopen(sprintf('%strain.%s',Dir_in,In_format),'wt');
+for k=1:length(frames_train)
+    C = strsplit(frames_train(k),"."); %separate name from ".txt"
+    fprintf(fid,'%s\n',C(1));
+end
+fclose(fid);
+fprintf('Saved %strain.%s\n',Dir_in,In_format);
+
+% write frame names into test.txt
+fid = fopen(sprintf('%stest.%s',Dir_in,In_format),'wt');
+for k=1:length(frames_test)
+    C = strsplit(frames_test(k),"."); %separate name from ".txt"
+    fprintf(fid,'%s\n',C(1));
+end
+fclose(fid);
+fprintf('Saved %stest.%s\n',Dir_in,In_format);
+
+% write frame names into val.txt
+fid = fopen(sprintf('%sval.%s',Dir_in,In_format),'wt');
+for k=1:length(frames_val)
+    C = strsplit(frames_val(k),"."); %separate name from ".txt"
+    fprintf(fid,'%s\n',C(1));
+end
+fclose(fid);
+fprintf('Saved %sval.%s\n',Dir_in,In_format);
+
+fprintf('------DATASET PREPARATION COMPLETED--------\n')
 
 
 %---------------go through files and add annotations-------------
